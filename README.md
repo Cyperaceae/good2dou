@@ -4,6 +4,8 @@
 
 Extract Goodreads metadata and autofill Douban new subject pages.
 
+🔗 [Landing page](https://good2dou.pages.dev/)
+
 ## Installation
 
 ### Chrome / Edge
