@@ -28,12 +28,13 @@ Alternatively, for manual installation:
 
 ### Tampermonkey
 
-Install directly from [Greasy Fork](https://greasyfork.org/en/scripts/554760-good2dou), or grab the latest `good2dou.js` from the [Releases](https://github.com/Cyperaceae/good2dou/releases) page and drag it into your browser with Tampermonkey installed.
+Install directly from [Greasy Fork](https://greasyfork.org/en/scripts/554760-good2dou), or grab the latest `good2dou.user.js` from the [Releases](https://github.com/Cyperaceae/good2dou/releases) page and drag it into your browser with Tampermonkey installed.
 
 ## Features
 
 - Extracts book metadata from Goodreads pages.
 - Autofills the corresponding fields on Douban's new subject submission page.
+- Downloads the book cover directly on Douban's subject submission page.
 
 ## Changelog
 

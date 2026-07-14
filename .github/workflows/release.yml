@@ -4,10 +4,10 @@ name: Release
 #
 # On tag push this will:
 #   1. Parse the version from the tag name
-#   2. Sync it into chrome/manifest.json, firefox/manifest.json, tampermonkey/*good2dou.js
+#   2. Sync it into chrome/manifest.json, firefox/manifest.json, tampermonkey/good2dou.user.js
 #   3. Commit that change back to main (keeps the repo in sync with what's released)
 #   4. Zip chrome/ and firefox/
-#   5. Create a GitHub Release with the zips and the updated good2dou.js attached
+#   5. Create a GitHub Release with the zips and the updated good2dou.user.js attached
 #
 # The Chrome Web Store / Firefox Add-ons / Greasy Fork uploads are still manual,
 # but you can grab the already-version-synced files straight from the Release page.
@@ -39,9 +39,17 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add chrome/manifest.json firefox/manifest.json tampermonkey/*good2dou.js
-          git diff --staged --quiet && echo "No changes" || git commit -m "chore: sync version to ${{ steps.version.outputs.version }}"
-          git push origin HEAD:main
+          
+          git add chrome/manifest.json firefox/manifest.json tampermonkey/good2dou.user.js
+          
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: sync version to ${{ steps.version.outputs.version }}"
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
+          else
+            echo "No changes to commit"
+          fi
 
       - name: Package chrome extension
         run: cd chrome && zip -r ../good2dou-chrome-${{ steps.version.outputs.version }}.zip .
@@ -57,4 +65,4 @@ jobs:
           files: |
             good2dou-chrome-${{ steps.version.outputs.version }}.zip
             good2dou-firefox-${{ steps.version.outputs.version }}.zip
-            tampermonkey/*good2dou.js
+            tampermonkey/good2dou.user.js

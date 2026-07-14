@@ -5,7 +5,7 @@
  * Writes the given version into:
  *   - chrome/manifest.json
  *   - firefox/manifest.json
- *   - tampermonkey/*good2dou.js  (@version header; auto-detects the good2dou.js file, no need to hardcode the filename)
+ *   - tampermonkey/*good2dou.user.js  (@version header; auto-detects the good2dou.user.js file, no need to hardcode the filename)
  *
  * Never hand-edit the version in those three places again — pass the new
  * version here and run this script instead.
@@ -44,16 +44,16 @@ function syncManifest(dir) {
   console.log(`OK  ${dir}/manifest.json: ${oldVersion} -> ${version}`);
 }
 
-/** Update the @version header in the good2dou.js file under tampermonkey/ */
+/** Update the @version header in the good2dou.user.js file under tampermonkey/ */
 function syncUserscript() {
   const dir = path.join(ROOT, 'tampermonkey');
   if (!fs.existsSync(dir)) {
     console.warn('Skipped: tampermonkey directory not found');
     return;
   }
-  const userscriptFile = fs.readdirSync(dir).find((f) => f.endsWith('good2dou.js'));
+  const userscriptFile = fs.readdirSync(dir).find((f) => f.endsWith('good2dou.user.js'));
   if (!userscriptFile) {
-    console.warn('Skipped: no good2dou.js file found under tampermonkey/');
+    console.warn('Skipped: no good2dou.user.js file found under tampermonkey/');
     return;
   }
   const filePath = path.join(dir, userscriptFile);
